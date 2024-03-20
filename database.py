@@ -11,12 +11,14 @@ class Database:
         # Chargez les variables d'environnement du fichier .env
         load_dotenv()
 
-        # Récupérez les valeurs des variables d'environnement
-        self.host = os.getenv('DB_HOST')
-        self.port = int(os.getenv('DB_PORT'))  # La fonction os.getenv renvoie une chaîne, donc convertissez le port en entier
-        self.database = os.getenv('DB_NAME')
-        self.user = os.getenv('DB_USER')
-        self.password = os.getenv('DB_PASSWORD')
+ 
+        
+        host = os.environ.get("HOST")
+        port = int(os.environ.get("PORT"))  # Convertir le port en int car os.environ.get retourne une string
+        database_name = os.environ.get("DATABASE")
+        user = os.environ.get("USER")
+        password = os.environ.get("PASSWORD")
+
 
         self._open_sql_connection()
 
