@@ -1,17 +1,42 @@
 ALTER TABLE singer RENAME TO musician;
 
-ALTER TABLE musician ADD COLUMN email VARCHAR(100);
+ALTER TABLE musician RENAME COLUMN singerName TO musicianName;
+ALTER TABLE musician ADD role varchar(50);
+ALTER TABLE musician ADD bandName varchar(50);
 
-ALTER TABLE musician MODIFY COLUMN age DECIMAL(5, 2);
 
-CREATE TABLE IF NOT EXISTS concert (
-    concertName VARCHAR(50),
-    musicianName VARCHAR(50),
-    location VARCHAR(100),
-    concertDate DATE,
-    PRIMARY KEY (concertName),
-    CONSTRAINT FK_C_musicianName FOREIGN KEY (musicianName) REFERENCES musician(singerName)
+
+
+CREATE TABLE IF NOT EXISTS band (
+    bandName VARCHAR(50) PRIMARY KEY,
+    creation YEAR,
+    genre VARCHAR(50)
 );
 
-INSERT INTO musician (singerName, firstName, lastName, age, email) VALUES ("Nova", "Nora", "Vance", 29, "nora@example.com");
-INSERT INTO concert VALUES ("Nova Live", "Nova", "The Grand Hall", "2024-05-30");
+INSERT INTO band (bandName, creation, genre) VALUES
+                                                 ('Crazy Duo', 2015, 'rock'),
+                                                 ('Luna', 2009, 'classical'),
+                                                 ('Mysterio',2019, 'pop');
+
+
+
+
+UPDATE musician SET role = 'vocals',
+                    bandName = 'Crazy Duo'
+                        WHERE musicianName = 'Alina';
+
+
+
+UPDATE musician SET role = 'guitar',
+                    bandName = 'Mysterio'
+                        WHERE musicianName = 'Mysterio';
+
+
+UPDATE musician SET role = 'percussion',
+                    bandName = 'Crazy Duo'
+                        WHERE musicianName = 'Rainbow';
+
+
+UPDATE musician SET role = 'piano',
+                    bandName = 'Luna'
+                        WHERE musicianName = 'Luna';
