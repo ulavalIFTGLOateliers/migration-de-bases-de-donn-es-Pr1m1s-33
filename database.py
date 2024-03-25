@@ -1,8 +1,8 @@
 import os
-
 import pymysql
 from dotenv import load_dotenv
 
+load_dotenv()
 from sql_utils import run_sql_file
 
 
@@ -13,11 +13,15 @@ class Database:
 
  
         
-        host = os.environ.get("HOST")
-        port = int(os.environ.get("PORT"))  # Convertir le port en int car os.environ.get retourne une string
-        database_name = os.environ.get("DATABASE")
-        user = os.environ.get("USER")
-        password = os.environ.get("PASSWORD")
+        self.host = os.environ.get("HOST")
+        port_str = int(os.environ.get("PORT"))
+        if port_str is not None:
+            self.port = int(port_str)
+        else:
+            seft.port = 3306
+        self.database = os.environ.get("DATABASE")
+        self.user = os.environ.get("USER")
+        self.password = os.environ.get("PASSWORD")
 
 
         self._open_sql_connection()
